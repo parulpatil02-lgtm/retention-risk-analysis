@@ -3,7 +3,8 @@
 **Which currently active customers are most likely to churn next, and how much
 revenue is that worth — so a retention team knows exactly who to call first.**
 
-Full write-up: [`memo/one_page_memo.md`](memo/one_page_memo.md)
+Full write-up: [`memo/one_page_memo.md`](memo/one_page_memo.md) (2-minute read) or
+[`Revenue_at_Risk_Case_Study.pdf`](Revenue_at_Risk_Case_Study.pdf) (detailed, downloadable case study)
 
 ## Headline result
 
@@ -39,9 +40,11 @@ scripts/
   02_churn_drivers.py              logistic regression + chi-square significance tests
   03_revenue_at_risk.py            train/validate the model, score active customers, rank by $ risk
   04_make_charts.py                churn-rate charts for the memo
+  05_build_case_study_pdf.py       generates the detailed PDF case study below
 memo/
-  one_page_memo.md                 the actual deliverable — question, findings, recommendation
-  assets/                          charts referenced in the memo
+  one_page_memo.md                 the 2-minute-read deliverable — question, findings, recommendation
+  assets/                          charts referenced in the memo and the case study
+Revenue_at_Risk_Case_Study.pdf     detailed, systematic writeup — methodology, full driver table, limitations
 retention_dashboard.pbix           the Power BI report (open in Power BI Desktop)
 ```
 
