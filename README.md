@@ -41,8 +41,6 @@ scripts/
 memo/
   one_page_memo.md                 the actual deliverable — question, findings, recommendation
   assets/                          charts referenced in the memo
-powerbi/
-  POWER_BI_BUILD_GUIDE.md          exact steps to build the dashboard from the exported CSVs
 ```
 
 **Note:** there is no `.venv` folder in here on purpose — the Python environment
@@ -59,9 +57,6 @@ python -m venv .venv
 .venv\Scripts\python scripts\03_revenue_at_risk.py
 .venv\Scripts\python scripts\04_make_charts.py
 ```
-
-Then follow [`powerbi/POWER_BI_BUILD_GUIDE.md`](powerbi/POWER_BI_BUILD_GUIDE.md) to
-build and publish the dashboard.
 
 ## Stack
 
