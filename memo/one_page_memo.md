@@ -33,8 +33,10 @@ risk, then ranked them by `churn probability × annualized revenue`.
   monthly charges, and paperless billing all *increase* risk. Contract length has
   the largest effect by far: a two-year contract reduces the odds of churn by about
   73% relative to a month-to-month customer, holding everything else constant.
-- **The top 150 at-risk active accounts represent $114,608 in annualized revenue**,
-  and every one of them is on a month-to-month contract — the model isn't just
+- **The top 150 at-risk accounts carry $114,608 in expected annualized revenue at
+  risk** (their churn probability weighted against their revenue — their actual
+  combined billing is $167,537/year, but not all of that is expected to be lost).
+  Every one of them is on a month-to-month contract — the model isn't just
   confirming what we already suspected about contract type, it's telling us exactly
   *which* month-to-month accounts to prioritize by dollar value, not just by risk.
 

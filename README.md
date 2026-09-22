@@ -13,8 +13,9 @@ Full write-up: [`memo/one_page_memo.md`](memo/one_page_memo.md)
   `churn probability × annualized revenue`.
 - Found that customers on month-to-month contracts in their first year alone
   account for **49% of all annualized revenue lost to churn**.
-- Flagged the top 150 active accounts, worth **$114,608 in annualized revenue**,
-  for prioritized retention outreach.
+- Flagged the top 150 active accounts, carrying **$114,608 in expected annualized
+  revenue at risk** (probability-weighted; their actual combined billing is
+  $167,537/year), for prioritized retention outreach.
 
 *Note: this project uses IBM's public Telco Customer Churn dataset, framed as a
 fictional company ("Meridian Communications") to turn it into a real business
