@@ -41,6 +41,7 @@ scripts/
 memo/
   one_page_memo.md                 the actual deliverable — question, findings, recommendation
   assets/                          charts referenced in the memo
+retention_dashboard.pbix           the Power BI report (open in Power BI Desktop)
 ```
 
 **Note:** there is no `.venv` folder in here on purpose — the Python environment
