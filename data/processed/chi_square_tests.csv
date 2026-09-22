@@ -1,0 +1,9 @@
+variable,chi2,p_value
+Contract,1179.55,0.0
+InternetService,728.7,0.0
+TechSupport,189.97,0.0
+OnlineSecurity,205.42,0.0
+PaperlessBilling,256.87,0.0
+PaymentMethod,645.43,0.0
+SeniorCitizen,158.44,0.0
+Dependents,186.32,0.0
