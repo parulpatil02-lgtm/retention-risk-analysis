@@ -1,6 +1,6 @@
-# Retention Memo — Who to Call First, and What It's Worth
+# Retention Memo - Who to Call First, and What It's Worth
 
-**To:** VP of Customer Success, Meridian Communications *(fictional company — see note at the end)*
+**To:** VP of Customer Success, Meridian Communications *(fictional company - see note at the end)*
 **From:** Analytics
 
 ## The business problem
@@ -37,20 +37,20 @@ active and are the ones worth scoring.
 
 **The decision:** replace untargeted outreach with a ranked call list
 (`data/processed/revenue_at_risk_ranked.csv`), and lead with a free 3-month
-tech-support or online-security add-on — both are among the strongest protective
-factors — rather than a blanket discount, which the driver analysis doesn't support.
+tech-support or online-security add-on - both are among the strongest protective
+factors - rather than a blanket discount, which the driver analysis doesn't support.
 
 **Measured, on held-out customers the model never saw:**
 - The customers the model ranked in its top 10% actually churned at **72.3%**,
-  versus **26.6%** overall — a **2.7x** lift.
+  versus **26.6%** overall - a **2.7x** lift.
 - That 10% of customers contained **27.3% of all real churners**, against the 10%
   a random list would reach.
 
 **Model-estimated:** the top-150 list carries **4.8x** the expected at-risk revenue
-of a random list of 150 active customers ($114.6K vs $23.8K) — the same calls, aimed
+of a random list of 150 active customers ($114.6K vs $23.8K) - the same calls, aimed
 at nearly five times the money.
 
-**Illustrative — an assumption, not a result.** No retention campaign was run.
+**Illustrative - an assumption, not a result.** No retention campaign was run.
 *If* the offer saves a share of the accounts expected to churn:
 
 | Assumed save rate | Annual revenue retained | Offer pays off only if it costs less than |
@@ -69,7 +69,7 @@ accounts. Each is scored as `churn probability × annualized revenue`
 ## Assumptions & limitations
 
 - Active customers also appear in the training data labeled as "retained," although
-  their future is unknown — a standard simplification with snapshot data. A
+  their future is unknown - a standard simplification with snapshot data. A
   time-based split would be a stronger design.
 - Nothing here has been validated against the outcome of a real campaign; test the
   offer on a subset first.

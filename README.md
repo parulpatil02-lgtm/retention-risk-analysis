@@ -14,7 +14,7 @@ risk, so a limited retention budget is spent without a way to prioritize it.
 ## The data
 
 IBM's public Telco Customer Churn dataset: 7,043 customer records (7,032 after
-removing 11 brand-new accounts with no billing history) and 21 attributes —
+removing 11 brand-new accounts with no billing history) and 21 attributes -
 tenure, contract type, services, payment method, monthly charges, churn outcome.
 26.6% churned; 5,163 are still active. It is framed as a fictional company,
 "Meridian Communications," to turn it into a real decision; every number is
@@ -40,7 +40,7 @@ free tech-support or online-security add-on rather than a blanket discount.
 | Churn among the model's top-scored 10% vs overall | **72.3% vs 26.6% (2.7x)** | Measured on held-out customers |
 | Share of all real churners in that top 10% | **27.3%** (random would reach 10%) | Measured on held-out customers |
 | Expected at-risk revenue, top 150 vs a random 150 | **$114.6K vs $23.8K (4.8x)** | Model-estimated |
-| Revenue retained if an offer saves 10% / 20% / 30% | $11.5K / $22.9K / $34.4K a year | **Assumption — no campaign was run** |
+| Revenue retained if an offer saves 10% / 20% / 30% | $11.5K / $22.9K / $34.4K a year | **Assumption - no campaign was run** |
 
 The offer pays off only if it costs under $76 / $153 / $229 per contacted account at
 those save rates. The last two rows are arithmetic on stated assumptions, not
@@ -89,6 +89,6 @@ SQL (SQLite) · Python (pandas, statsmodels, scikit-learn) · Power BI
 ## Why two SQL approaches
 
 [`03_sql_only_risk_heuristic.sql`](sql/03_sql_only_risk_heuristic.sql) solves the same
-ranking with a rule-based score instead of a trained model — useful for a team
+ranking with a rule-based score instead of a trained model - useful for a team
 without a data-science function, and a concrete way to explain when you'd reach for
 one approach over the other.

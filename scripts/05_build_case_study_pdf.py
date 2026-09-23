@@ -131,7 +131,7 @@ def build():
 
     story.append(callout(
         "<b>The question:</b> which currently active customers are most likely to churn next, "
-        "and how much revenue does that represent — so a retention team knows exactly who to "
+        "and how much revenue does that represent - so a retention team knows exactly who to "
         "call first, and can defend the dollar case for doing it.", TEAL, TEAL_SOFT,
     ))
     story.append(Spacer(1, 12))
@@ -150,7 +150,7 @@ def build():
     story.append(Paragraph("1. Executive Summary", h2_style))
     story.append(Paragraph(
         "Retention outreach at Meridian Communications <i>(a fictional company built on real, "
-        "public data — see the Data section)</i> was reactive rather than prioritized: there was "
+        "public data - see the Data section)</i> was reactive rather than prioritized: there was "
         "no systematic way to identify which active customers were most likely to churn, or how "
         "much revenue was actually on the line. This project builds that system end to end: a "
         "validated statistical model of churn drivers, a forward-looking risk score applied only "
@@ -162,8 +162,8 @@ def build():
         "account for 49% of all annualized revenue lost to churn</b>, despite being a minority of "
         "the customer base. The top 150 currently active accounts ranked by the model carry "
         "$114,608 in expected annualized revenue at risk. On customers the model never saw, the "
-        "accounts it ranked in its top 10% actually churned at 72.3% versus 26.6% overall — a "
-        "2.7x lift — which is what makes the ranked list worth acting on.", body_style,
+        "accounts it ranked in its top 10% actually churned at 72.3% versus 26.6% overall - a "
+        "2.7x lift - which is what makes the ranked list worth acting on.", body_style,
     ))
 
     # ---------- Business Context ----------
@@ -185,7 +185,7 @@ def build():
         "attributes covering tenure, contract type, services subscribed, billing method, and "
         "churn outcome). It is framed here as a fictional company, “Meridian Communications,” "
         "to structure the work as a real retention decision rather than a data-exploration "
-        "exercise — every number in this document is computed from the real dataset, not "
+        "exercise - every number in this document is computed from the real dataset, not "
         "fabricated.", body_style,
     ))
 
@@ -195,13 +195,13 @@ def build():
     story.append(Paragraph("4.1 &nbsp; Data Cleaning", h3_style))
     story.append(ListFlowable([
         ListItem(Paragraph(
-            "Excluded 11 customers with zero tenure — they have no billing history yet and "
+            "Excluded 11 customers with zero tenure - they have no billing history yet and "
             "cannot meaningfully be scored for churn risk.", list_style)),
         ListItem(Paragraph(
             "Collapsed the “No internet service” category (present in six add-on columns: "
             "online security, backup, device protection, tech support, streaming TV/movies) into "
             "“No.” Left uncollapsed, this category is perfectly collinear with "
-            "<i>InternetService = No</i> and produces a singular matrix in logistic regression — "
+            "<i>InternetService = No</i> and produces a singular matrix in logistic regression - "
             "a real bug encountered and fixed during this analysis, not a hypothetical.", list_style)),
         ListItem(Paragraph(
             "Bucketed tenure into four cohorts (0–12, 13–24, 25–48, 49–72 months) for "
@@ -223,7 +223,7 @@ def build():
         "method, senior citizen status, dependents) to identify which factors drive churn and in "
         "which direction, with p-values for statistical significance. Separately, a "
         "scikit-learn logistic regression was trained on an 80/20 train/test split for the "
-        "prediction task itself, and evaluated on the held-out 20% — achieving an "
+        "prediction task itself, and evaluated on the held-out 20% - achieving an "
         "<b>AUC of 0.833</b>, meaning the model meaningfully separates churners from "
         "non-churners rather than performing close to chance (0.5).", body_style,
     ))
@@ -231,11 +231,11 @@ def build():
     story.append(Paragraph("4.4 &nbsp; Scoring &amp; Ranking", h3_style))
     story.append(Paragraph(
         "The model was refit on the complete historical dataset, then applied only to the 5,163 "
-        "<b>currently active</b> customers — a customer who has already churned does not need a "
+        "<b>currently active</b> customers - a customer who has already churned does not need a "
         "future-risk prediction. Each active customer was scored with: "
         "<i>expected revenue at risk = churn probability × annualized revenue</i> "
         "(monthly charge × 12). This is a probability-weighted expected value, not a customer's "
-        "actual billing — a distinction worth stating explicitly, since it changes how the top-line "
+        "actual billing - a distinction worth stating explicitly, since it changes how the top-line "
         "dollar figure should be interpreted (see Section 5.3).", body_style,
     ))
 
@@ -294,14 +294,14 @@ def build():
     story.append(chart_row)
     story.append(Paragraph(
         "Churn falls from 42.7% (month-to-month) to 2.8% (two-year contracts), and from 47.7% in "
-        "a customer's first year to 9.5% after four years — both consistent with the regression's "
+        "a customer's first year to 9.5% after four years - both consistent with the regression's "
         "conclusions above, not just the raw correlations behind them.", caption_style,
     ))
 
     story.append(Paragraph("5.3 &nbsp; The Concentration Finding", h3_style))
     story.append(callout(
         "New, month-to-month customers (0–12 months tenure) are 1,994 of the 7,032 total "
-        "customers (28%) — but they account for <b>49.1% of all annualized revenue lost to churn</b> "
+        "customers (28%) - but they account for <b>49.1% of all annualized revenue lost to churn</b> "
         "($819,617 of the total). This single cohort is the highest-leverage place to intervene.",
         TEAL, TEAL_SOFT,
     ))
@@ -312,10 +312,10 @@ def build():
         "top 150 accounts to prioritize. A precise reading of the dollar figure matters here: "
         "these 150 accounts carry <b>$114,608 in expected annualized revenue at risk</b> "
         "(their churn probability weighted against their revenue). Their actual combined billing "
-        "is higher — <b>$167,537/year</b> — but not all of that is expected to be lost; $114,608 is "
+        "is higher - <b>$167,537/year</b> - but not all of that is expected to be lost; $114,608 is "
         "the risk-adjusted figure a retention budget should be sized against. Notably, "
         "<b>100% of the top 150 are on month-to-month contracts</b>, which is not a coincidence "
-        "given the driver analysis above — it is the model converging on the same conclusion from "
+        "given the driver analysis above - it is the model converging on the same conclusion from "
         "a different angle.", body_style,
     ))
 
@@ -324,7 +324,7 @@ def build():
     story.append(callout(
         "Replace untargeted outreach with the ranked call list: route the top 150 accounts to "
         "retention this month, and lead with a free 3-month tech-support or online-security "
-        "add-on — both are among the strongest statistically significant protective factors — "
+        "add-on - both are among the strongest statistically significant protective factors - "
         "rather than a blanket discount, which the driver analysis does not support.",
         WARN_DARK, WARN_SOFT,
     ))
@@ -380,12 +380,12 @@ def build():
     story.append(ListFlowable([
         ListItem(Paragraph(
             "The model was trained on historical outcomes (including customers who already "
-            "churned) and then applied to active accounts going forward — it has not yet been "
+            "churned) and then applied to active accounts going forward - it has not yet been "
             "validated against the actual outcome of a real retention campaign. The recommended "
             "offer should be tested on a subset before a full rollout.", list_style)),
         ListItem(Paragraph(
             "Active customers also appear in the training data labeled as “retained,” although "
-            "their future is unknown — a standard simplification with snapshot data. A time-based "
+            "their future is unknown - a standard simplification with snapshot data. A time-based "
             "split would be a stronger design.", list_style)),
         ListItem(Paragraph(
             "Revenue at risk is annualized at the customer's <i>current</i> monthly rate; it does "
@@ -393,7 +393,7 @@ def build():
         ListItem(Paragraph(
             "Collapsing “No internet service” into “No” for add-on columns removes exact "
             "multicollinearity, but a partial correlation remains between InternetService and the "
-            "add-on columns — coefficients for those add-ons should be read as “effect among "
+            "add-on columns - coefficients for those add-ons should be read as “effect among "
             "customers with comparable internet service,” not fully independent effects.", list_style)),
     ], bulletType="bullet", start="circle"))
 
@@ -403,7 +403,7 @@ def build():
     story.append(Paragraph(
         "<b>Two SQL approaches, deliberately:</b> alongside the Python model, a pure-SQL "
         "rule-based risk heuristic (window functions, no ML dependency) solves the same ranking "
-        "problem for a team without a data-science function — useful context for explaining when "
+        "problem for a team without a data-science function - useful context for explaining when "
         "each approach is the right tool.", body_style,
     ))
     story.append(Paragraph(
