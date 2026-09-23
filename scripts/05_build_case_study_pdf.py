@@ -6,11 +6,13 @@ one-page memo which is optimized for a two-minute read.
 """
 from pathlib import Path
 
+import pandas as pd
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import LETTER
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import (
+    CondPageBreak,
     Image,
     ListFlowable,
     ListItem,
@@ -51,11 +53,11 @@ meta_style = ParagraphStyle(
 )
 h2_style = ParagraphStyle(
     "H2Custom", parent=styles["Heading2"], fontName="Helvetica-Bold",
-    fontSize=14, leading=18, textColor=TEAL_DARK, spaceBefore=18, spaceAfter=8,
+    fontSize=14, leading=18, textColor=TEAL_DARK, spaceBefore=18, spaceAfter=8, keepWithNext=1,
 )
 h3_style = ParagraphStyle(
     "H3Custom", parent=styles["Heading3"], fontName="Helvetica-Bold",
-    fontSize=11, leading=14, textColor=INK, spaceBefore=10, spaceAfter=4,
+    fontSize=11, leading=14, textColor=INK, spaceBefore=10, spaceAfter=4, keepWithNext=1,
 )
 body_style = ParagraphStyle(
     "BodyCustom", parent=styles["Normal"], fontName="Helvetica",
@@ -159,7 +161,9 @@ def build():
         "The single biggest finding: <b>customers on month-to-month contracts in their first year "
         "account for 49% of all annualized revenue lost to churn</b>, despite being a minority of "
         "the customer base. The top 150 currently active accounts ranked by the model carry "
-        "$114,608 in expected annualized revenue at risk.", body_style,
+        "$114,608 in expected annualized revenue at risk. On customers the model never saw, the "
+        "accounts it ranked in its top 10% actually churned at 72.3% versus 26.6% overall — a "
+        "2.7x lift — which is what makes the ranked list worth acting on.", body_style,
     ))
 
     # ---------- Business Context ----------
@@ -315,17 +319,63 @@ def build():
         "a different angle.", body_style,
     ))
 
-    # ---------- Recommendation ----------
-    story.append(Paragraph("6. Recommendation", h2_style))
+    # ---------- Recommendation & impact ----------
+    story.append(Paragraph("6. Recommendation &amp; What It Changes", h2_style))
     story.append(callout(
-        "Route the top 150 ranked accounts to retention outreach this month, prioritized by "
-        "expected revenue at risk. Test a free 3-month tech-support or online-security add-on as "
-        "the first offer — both are among the strongest statistically significant protective "
-        "factors in the model — rather than a blanket discount, which is not supported by the "
-        "driver analysis.", WARN_DARK, WARN_SOFT,
+        "Replace untargeted outreach with the ranked call list: route the top 150 accounts to "
+        "retention this month, and lead with a free 3-month tech-support or online-security "
+        "add-on — both are among the strongest statistically significant protective factors — "
+        "rather than a blanket discount, which the driver analysis does not support.",
+        WARN_DARK, WARN_SOFT,
     ))
+    story.append(Spacer(1, 8))
+    story.append(Paragraph(
+        "The evidence for the change, separated by how much each piece can be trusted:", body_style))
+
+    s = pd.read_csv(ROOT / "data" / "processed" / "revenue_at_risk_summary.csv").iloc[0]
+    sc = pd.read_csv(ROOT / "data" / "processed" / "impact_scenarios.csv")
+    evidence = [["Evidence", "Result", "Basis"],
+        ["Churn in the model's top-scored 10% vs overall",
+         f"{s.held_out_top_decile_churn_rate:.1%} vs {s.held_out_base_churn_rate:.1%} "
+         f"({s.held_out_top_decile_lift:.1f}x)", "Measured, held-out customers"],
+        ["Share of all real churners in that top 10%",
+         f"{s.held_out_churners_in_top_decile:.1%} (random: 10%)", "Measured, held-out customers"],
+        ["Expected at-risk revenue, top 150 vs a random 150",
+         f"${s.total_annual_revenue_at_risk_top_n / 1000:,.1f}K vs "
+         f"${s.expected_at_risk_random_list_same_size / 1000:,.1f}K "
+         f"({s.targeting_advantage_vs_random:.1f}x)", "Model-estimated"]]
+    for r in sc.itertuples():
+        evidence.append([
+            f"Revenue retained if the offer saves {r.assumed_save_rate:.0%}",
+            f"${r.annual_revenue_retained:,.0f}/yr; offer must cost < "
+            f"${r.breakeven_offer_cost_per_account:,.0f}/account", "Assumption, not a result"])
+    cell = ParagraphStyle("Cell", parent=body_style, fontSize=8.5, leading=11, spaceAfter=0)
+    head = ParagraphStyle("CellHead", parent=cell, fontName="Helvetica-Bold", textColor=colors.white)
+    evidence = [[Paragraph(c, head if i == 0 else cell) for c in row]  # wrapped so long text can't overflow
+                for i, row in enumerate(evidence)]
+    ev_table = Table(evidence, colWidths=[2.45 * inch, 2.3 * inch, 1.75 * inch])
+    ev_table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), TEAL),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
+        ("FONTSIZE", (0, 0), (-1, -1), 8.5),
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, TEAL_SOFT]),
+        ("BACKGROUND", (0, 4), (-1, -1), WARN_SOFT),
+        ("GRID", (0, 0), (-1, -1), 0.5, BORDER),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+    ]))
+    story.append(ev_table)
+    story.append(Spacer(1, 6))
+    story.append(Paragraph(
+        "No retention campaign was run, so the shaded rows are arithmetic on stated assumptions, "
+        "not outcomes. Replacing them with a measured save rate is the point of the A/B test "
+        "proposed below.", caption_style))
 
     # ---------- Limitations ----------
+    story.append(CondPageBreak(1.6 * inch))  # a list can split, so keepWithNext alone won't hold the heading
     story.append(Paragraph("7. Assumptions &amp; Limitations", h2_style))
     story.append(ListFlowable([
         ListItem(Paragraph(
@@ -333,6 +383,10 @@ def build():
             "churned) and then applied to active accounts going forward — it has not yet been "
             "validated against the actual outcome of a real retention campaign. The recommended "
             "offer should be tested on a subset before a full rollout.", list_style)),
+        ListItem(Paragraph(
+            "Active customers also appear in the training data labeled as “retained,” although "
+            "their future is unknown — a standard simplification with snapshot data. A time-based "
+            "split would be a stronger design.", list_style)),
         ListItem(Paragraph(
             "Revenue at risk is annualized at the customer's <i>current</i> monthly rate; it does "
             "not account for future price changes, upgrades, or downgrades.", list_style)),
