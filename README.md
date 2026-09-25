@@ -2,9 +2,6 @@
 
 **Which active customers should a retention team call first, and what is calling them worth?**
 
-Read the [one-page memo](memo/one_page_memo.md) (2 minutes) or the detailed
-[case study PDF](Revenue_at_Risk_Case_Study.pdf).
-
 ## The business problem
 
 A telecom provider's retention outreach is reactive and untargeted. Nobody can say
