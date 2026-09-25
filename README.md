@@ -46,6 +46,19 @@ The offer pays off only if it costs under $76 / $153 / $229 per contacted accoun
 those save rates. The last two rows are arithmetic on stated assumptions, not
 results; the next step would be an A/B test to measure a real save rate.
 
+## The dashboard
+
+Two Power BI pages: an executive summary (churn by contract and tenure, revenue at risk) and the call
+list a retention team would work from. The file is in the repo
+([`retention_dashboard.pbix`](retention_dashboard.pbix)); these are screenshots of it.
+
+![Executive summary page](docs/dashboard_executive_summary.png)
+
+The call list, ranked by expected annual revenue at risk. It shows the top of the 150-account list
+(the full list is in [`data/processed/revenue_at_risk_ranked.csv`](data/processed/revenue_at_risk_ranked.csv)):
+
+![Call list page](docs/dashboard_call_list.png)
+
 ## What's in here
 
 ```
@@ -69,6 +82,7 @@ memo/
   assets/                          charts
 Revenue_at_Risk_Case_Study.pdf     detailed writeup: methodology, driver table, limitations
 retention_dashboard.pbix           the Power BI report (open in Power BI Desktop)
+docs/                              dashboard screenshots
 ```
 
 ## How to reproduce
