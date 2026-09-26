@@ -17,6 +17,21 @@ tenure, contract type, services, payment method, monthly charges, churn outcome.
 "Meridian Communications," to turn it into a real decision; every number is
 computed from the real dataset.
 
+## Data preparation
+
+The raw file has no missing values and no duplicate customer IDs, so cleaning was about a few specific
+problems ([`01_clean_data.py`](scripts/01_clean_data.py)):
+
+- **11 blank `TotalCharges` values.** The column is stored as text. All 11 are accounts with zero tenure
+  (brand new, never billed), so they can't have churned or carry risk yet. I dropped them (7,043 to 7,032)
+  instead of inventing a number.
+- **"No internet service" and "No phone service" categories.** For add-on columns such as `OnlineSecurity`
+  they mean the same as "No", and they duplicate the `InternetService` and `PhoneService` columns. Left in,
+  they made the logistic regression fail (singular matrix), so I collapsed them into "No".
+- **Derived fields.** A 0/1 churn flag, and tenure grouped into four buckets (0-12, 13-24, 25-48, 49-72
+  months) for the cohort analysis.
+- **Loaded into SQLite** so the SQL scripts run against the same cleaned table the model uses.
+
 ## What I found
 
 - **One cohort drives half the loss:** month-to-month customers in their first
